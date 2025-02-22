@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "careerfit"
+version = "1.0.0"
+description = "CLI tool to find a career that fits you."
+authors = [
+  { name = "Mkobie", email = "" }
+]
+requires-python = ">=3.7"
+
+[tool.setuptools]
+packages = ["careerfit"]
+
+[project.scripts]
+careerfit = "careerfit.__main__:main"
+careerfit-admin = "careerfit.admin:main"

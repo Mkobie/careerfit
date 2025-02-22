@@ -1,0 +1,31 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+pip-log.txt
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.eggs/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Editor and IDE files
+.idea/
+*.iml
+
+# Local development overrides
+.env
+.env.local
+.settings/
