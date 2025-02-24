@@ -3,7 +3,7 @@ import argparse
 from careerfit import search
 from careerfit.data_source import DataSource
 from careerfit.display import get_description_with_hyperlink
-from careerfit.globals import COMPANIES_DIR, SAVE_DIR
+from careerfit.globals import SAVE_DIR, COMPANIES_FILE
 from careerfit.query_engine import QueryEngine
 from careerfit.user_lists import save, show_saved, unsave
 
@@ -59,7 +59,7 @@ def main():
     """
     args = parse_arguments()
 
-    data_source = DataSource(COMPANIES_DIR)
+    data_source = DataSource(COMPANIES_FILE)
 
     if args.source:
         data = data_source.load_list_data(SAVE_DIR / f"{args.source}.txt")

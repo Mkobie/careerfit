@@ -1,7 +1,8 @@
 import json
-import os
 import pathlib as Path
-from typing import List, Dict, Union
+from typing import List, Dict
+
+from careerfit.globals import COMPANIES_FILE
 
 
 class DataSource:
@@ -31,35 +32,34 @@ class DataSource:
         list_data = [company for company in full_data if company["name"] in list_company_names]
         return list_data
 
-    def load_data(self) -> List[Dict[str, Union[str, int, List[str]]]]:
+    def load_data(self) -> List[Dict]:
         """
-        Load all company data from JSON files in the source path.
+        Load all company data from JSON file.
 
         Returns:
-            List[Dict[str, Union[str, int, List[str]]]]: A list of dictionaries containing company data.
+            List[Dict]: A list of dictionaries containing company data.
         """
-        data = []
-        for filename in os.listdir(self.source_path):
-            if filename.endswith(".json"):
-                try:
-                    with open(os.path.join(self.source_path, filename), "r") as f:
-                        company_data = json.load(f)
-                        data.append(company_data)
-                        self.list_of_company_names.append(company_data['name'])
-                except json.JSONDecodeError as e:
-                    print(f"Error loading {filename}: {e}")
-        return data
+        all_company_data = None
+        try:
+            with open(self.source_path, "r") as f:
+                all_company_data = json.load(f)
+        except json.JSONDecodeError as e:
+            print(f"Error loading {self.source_path}")
 
-    def save_data(self, company_info: Dict) -> None:
+        if all_company_data:
+            for company in all_company_data:
+                self.list_of_company_names.append(company['name'])
+
+        return all_company_data
+
+    def save_data(self, company_info) -> None:
         """
-        Save updated data back to the corresponding JSON files.
-        We match the updated record by its 'name' field to find the correct file.
+        Save updated data back to the JSON file.
 
         Args:
-            company_info (Dict): Company info to save.
+            company_info (Dict): All company info to be written back
         """
-        filename = f"{company_info['name'].replace(' ', '_')}.json"
-        with open(self.source_path / filename, "w", encoding="utf-8") as file:
+        with open(self.source_path, "w", encoding="utf-8") as file:
             json.dump(company_info, file, indent=4, ensure_ascii=False)
 
     def get_company_names(self):

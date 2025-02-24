@@ -15,12 +15,11 @@ At the moment the tool is targeted towards my own preferences (embedded, c++, py
 
 ## Installation
 
-Make sure you have Python 3.8+ installed, then clone the repository, install dependencies, and run the setup script to unpack the company data files:
+Make sure you have Python 3.8+ installed, then clone the repository, and install dependencies:
 ```bash
 git clone https://github.com/Mkobie/careerfit.git
 cd careerfit
 pip install -r requirements.txt
-./setup.sh
 ```
 
 Install careerfit in a virtual environment, and try it out!

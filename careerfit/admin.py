@@ -2,7 +2,7 @@ import argparse
 
 from careerfit import search
 from careerfit.data_source import DataSource
-from careerfit.globals import COMPANIES_DIR
+from careerfit.globals import COMPANIES_FILE
 from careerfit.query_engine import QueryEngine
 
 
@@ -32,7 +32,7 @@ def main():
     """
     args = parse_arguments()
 
-    data_source = DataSource(COMPANIES_DIR)
+    data_source = DataSource(COMPANIES_FILE)
     data = data_source.load_data()
 
     company_name = search.resolve_company_argument(args.company)
@@ -57,10 +57,13 @@ def main():
         else:
             company_data = company_data[0]
             old_value = company_data[field]
-            company_data[field] = value
-            data_source.save_data(company_data)
-            print(f"Updated {company_name} {field} from '{old_value}' to '{value}'")
 
+            for old_company_data in data:
+                if company_data == old_company_data:
+                    old_company_data[field] = value
+                    data_source.save_data(data)
+                    print(f"Updated {company_name} {field} from '{old_value}' to '{value}'")
+                    break
 
 if __name__ == "__main__":
     main()
